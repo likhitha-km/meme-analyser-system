@@ -21,32 +21,15 @@ Internet memes communicate meaning through a tight interplay of image and text, 
 An uploaded image is processed in parallel by three primary pipelines — the ViT classifier, DETR object detector, and the OpenCV/Tesseract OCR pipeline. OCR output feeds into the DistilBERT sentiment model, and all four resulting signals (classification, objects, text, sentiment) feed into the heuristic virality engine. The interface renders all seven resulting data points in real time.
 
 ```
-               Uploaded Meme
-                                      │
-        ┌─────────────────────────────┼─────────────────────────────┐
-        │                             │                             │
-        ▼                             ▼                             ▼
-┌───────────────┐            ┌────────────────┐            ┌─────────────────┐
-│  ViT Classifier │            │  DETR Object    │            │  OpenCV + OCR    │
-│  (Fine-Tuned)  │            │  Detection      │            │  (Tesseract)     │
-└───────┬────────┘            └────────┬────────┘            └────────┬─────────┘
-        │                              │                              │
-        │                              │                              ▼
-        │                              │                     ┌──────────────────┐
-        │                              │                     │  DistilBERT       │
-        │                              │                     │  Sentiment Model  │
-        │                              │                     └────────┬──────────┘
-        │                              │                              │
-        └──────────────────────────────┼──────────────────────────────┘
-                                        ▼
-                          ┌──────────────────────────┐
-                          │  Virality Heuristic Engine │
-                          └──────────────┬─────────────┘
-                                         ▼
-                            ┌────────────────────────┐
-                            │   Gradio Dashboard       │
-                            │  (7-part real-time UI)   │
-                            └────────────────────────┘
+                              Uploaded Meme
+   │
+   ├──▶ ViT Classifier ─────────────────▶ Emotional tone + confidence ──┐
+   │                                                                     │
+   ├──▶ DETR Object Detection ──────────▶ Detected objects/people ──────┤
+   │                                                                     ├──▶ Virality Heuristic Engine ──▶ Gradio Dashboard
+   └──▶ OpenCV + Tesseract OCR ──▶ Extracted text                       │
+                                       │                                 │
+                                       └──▶ DistilBERT Sentiment ────────┘
 ```
 
 ## Output Dashboard
