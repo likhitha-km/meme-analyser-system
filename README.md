@@ -20,17 +20,16 @@ Internet memes communicate meaning through a tight interplay of image and text, 
 
 An uploaded image is processed in parallel by three primary pipelines — the ViT classifier, DETR object detector, and the OpenCV/Tesseract OCR pipeline. OCR output feeds into the DistilBERT sentiment model, and all four resulting signals (classification, objects, text, sentiment) feed into the heuristic virality engine. The interface renders all seven resulting data points in real time.
 
-```
-                              Uploaded Meme
-   │
-   ├──▶ ViT Classifier ─────────────────▶ Emotional tone + confidence ──┐
-   │                                                                     │
-   ├──▶ DETR Object Detection ──────────▶ Detected objects/people ──────┤
-   │                                                                     ├──▶ Virality Heuristic Engine ──▶ Gradio Dashboard
-   └──▶ OpenCV + Tesseract OCR ──▶ Extracted text                       │
-                                       │                                 │
-                                       └──▶ DistilBERT Sentiment ────────┘
-```
+**Pipeline stages:**
+
+1. **Input** — User uploads a meme image.
+2. **Parallel processing** — The image is simultaneously sent to three independent pipelines:
+   - **ViT Classifier** → predicts emotional tone label + confidence score
+   - **DETR Object Detector** → returns detected objects/people + confidence scores
+   - **OpenCV + Tesseract OCR** → extracts and cleans embedded text
+3. **Sentiment analysis** — The OCR output from step 2 is passed to **DistilBERT**, which returns a sentiment label + confidence score.
+4. **Synthesis** — The **Virality Heuristic Engine** combines the outputs of the classifier, object detector, OCR, and sentiment model into a single Virality Potential score (0–100) with a rule-by-rule rationale.
+5. **Output** — All seven resulting data points are rendered in the **Gradio Dashboard** in real time.
 
 ## Output Dashboard
 
