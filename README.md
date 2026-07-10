@@ -21,30 +21,32 @@ Internet memes communicate meaning through a tight interplay of image and text, 
 An uploaded image is processed in parallel by three primary pipelines — the ViT classifier, DETR object detector, and the OpenCV/Tesseract OCR pipeline. OCR output feeds into the DistilBERT sentiment model, and all four resulting signals (classification, objects, text, sentiment) feed into the heuristic virality engine. The interface renders all seven resulting data points in real time.
 
 ```
-                 ┌──────────────────┐
-                 │   Uploaded Meme   │
-                 └────────┬─────────┘
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
- ┌─────────────┐  ┌───────────────┐  ┌─────────────────┐
- │  ViT (Fine-  │  │  DETR Object  │  │  OpenCV + OCR    │
- │   Tuned)     │  │  Detection    │  │  (Tesseract)     │
- └──────┬───────┘  └───────┬───────┘  └────────┬─────────┘
-        │                  │                    ▼
-        │                  │           ┌──────────────────┐
-        │                  │           │ DistilBERT        │
-        │                  │           │ Sentiment Analysis│
-        │                  │           └────────┬──────────┘
-        └──────────┬───────┴──────────┬─────────┘
-                    ▼
-          ┌───────────────────────┐
-          │  Virality Heuristic    │
-          │       Engine           │
-          └───────────┬────────────┘
-                       ▼
-             ┌───────────────────┐
-             │  Gradio Dashboard  │
-             └───────────────────┘
+               Uploaded Meme
+                                      │
+        ┌─────────────────────────────┼─────────────────────────────┐
+        │                             │                             │
+        ▼                             ▼                             ▼
+┌───────────────┐            ┌────────────────┐            ┌─────────────────┐
+│  ViT Classifier │            │  DETR Object    │            │  OpenCV + OCR    │
+│  (Fine-Tuned)  │            │  Detection      │            │  (Tesseract)     │
+└───────┬────────┘            └────────┬────────┘            └────────┬─────────┘
+        │                              │                              │
+        │                              │                              ▼
+        │                              │                     ┌──────────────────┐
+        │                              │                     │  DistilBERT       │
+        │                              │                     │  Sentiment Model  │
+        │                              │                     └────────┬──────────┘
+        │                              │                              │
+        └──────────────────────────────┼──────────────────────────────┘
+                                        ▼
+                          ┌──────────────────────────┐
+                          │  Virality Heuristic Engine │
+                          └──────────────┬─────────────┘
+                                         ▼
+                            ┌────────────────────────┐
+                            │   Gradio Dashboard       │
+                            │  (7-part real-time UI)   │
+                            └────────────────────────┘
 ```
 
 ## Output Dashboard
@@ -118,5 +120,3 @@ The Virality Potential score is a rule-based heuristic, not a data-driven predic
 ## License
 
 MIT License © 2026 Likhitha K M
-
-Specify your license here (e.g., MIT).
