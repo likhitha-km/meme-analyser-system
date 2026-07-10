@@ -2,7 +2,7 @@
 
 A multi-modal AI system for comprehensive analysis and virality potential assessment of internet memes — combining computer vision, OCR, sentiment analysis, and object detection into a single real-time pipeline.
 
-![Gradio Interface](assets/interface_screenshot.png)
+![Gradio Interface](assets/meme-analysis-gradio.png)
 
 ## Overview
 
